@@ -1,40 +1,52 @@
 package com.csr.csrportal.controller;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.Date;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 @Controller
+@RequestMapping("/example")
 public class Example {
 
     @Value("${application.message:Hello World}")
     private String message = "Hello World";
+    
+    @Value("${location}")
+    private String location;
+    
+    @Value("${test.location}")
+    private String testlocation;
+    
+    @Value("${testtest.location}")
+    private String testtestlocation;
 
-    @RequestMapping("/example")
-    public String example(Map<String, Object> model) {
+    @RequestMapping("/init")
+    public String init(Map<String, Object> model) {
         model.put("time", new Date());
         model.put("message", this.message);
         return "welcome";
     }
 
-    @RequestMapping("/mvpdashboard")
+    @RequestMapping("/location")
+    @ResponseBody
     public String mvpDashboard(Map<String, Object> model) {
-        return "mvp-dashboard";
+        return location;
     }
 
     @RequestMapping("/mvpindex")
+    @ResponseBody
     public String mvpIndex(Map<String, Object> model) {
-        return "mvp-index";
+        return testlocation;
     }
 
-    @RequestMapping("/mvpsearchresultscustomer")
+    @RequestMapping("/testtestlocation")
+    @ResponseBody
     public String mvpSearchResultsCustomer(Map<String, Object> model) {
-        return "mvp-search-results-customer";
+        return testtestlocation;
     }
 
     @RequestMapping("/mvpsearchresultsorder")
